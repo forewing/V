@@ -1,30 +1,17 @@
-name: Docker
+name: V2ray
 
 on:
   push:
     branches:
       - main
+    paths:
+      - 'v2ray/**'
+      - '.github/workflows/v2ray.yml'
   pull_request:
     branches:
       - main
 
 jobs:
-  caddy:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-
-    - name: Build and push caddy images to latest
-      uses: docker/build-push-action@v1
-      with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-        repository: ${{ secrets.DOCKER_REPO_CADDY }}
-        tags: latest
-        push: ${{ startsWith(github.ref, 'refs/heads/main') }}
-        path: ./caddy
-
   v2ray:
     runs-on: ubuntu-latest
     steps:
