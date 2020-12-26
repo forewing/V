@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# bash <(curl -s https://raw.githubusercontent.com/forewing/V/main/install.sh)
+
 curl -fsSL https://get.docker.com -o /tmp/get-docker.sh
 
 sh /tmp/get-docker.sh
@@ -16,3 +18,6 @@ mkdir -p $TARGET_PATH
 
 curl -fsSL https://raw.githubusercontent.com/forewing/V/main/docker-compose.yml -o $TARGET_PATH/docker-compose.yml
 curl -fsSL https://raw.githubusercontent.com/forewing/V/main/example.env -o $TARGET_PATH/.env
+
+cd $TARGET_PATH
+docker-compose pull
