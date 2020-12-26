@@ -2,13 +2,18 @@
 
 # bash <(curl -s https://raw.githubusercontent.com/forewing/V/main/install.sh)
 
-curl -fsSL https://get.docker.com -o /tmp/get-docker.sh
+if ! command -v docker &> /dev/null
+then
+    echo "docker not found, install"
+    bash <(curl -s https://get.docker.com)
+fi
 
-sh /tmp/get-docker.sh
-
-curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-
-chmod +x /usr/local/bin/docker-compose
+if ! command -v docker-compose &> /dev/null
+then
+    echo "docker-compose not found, install"
+    curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    chmod +x /usr/local/bin/docker-compose
+fi
 
 if [ -z "${TARGET_PATH}" ]; then
     TARGET_PATH="/app/v"
