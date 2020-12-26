@@ -1,0 +1,42 @@
+name: Docker
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  caddy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Build and push caddy images to latest
+      uses: docker/build-push-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        repository: ${{ secrets.DOCKER_REPO_CADDY }}
+        tags: latest
+        push: ${{ startsWith(github.ref, 'refs/heads/master') }}
+        path: ./caddy
+
+  v2ray:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Build and push v2ray images to latest
+      uses: docker/build-push-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        repository: ${{ secrets.DOCKER_REPO_V2RAY }}
+        tags: latest
+        push: ${{ startsWith(github.ref, 'refs/heads/master') }}
+        path: ./v2ray

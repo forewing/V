@@ -1,0 +1,4 @@
+.env
+
+# Volumes
+caddy_data/

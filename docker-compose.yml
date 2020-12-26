@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  v2ray:
+    # build: v2ray
+    image: forewing/v-v2ray
+    env_file:
+      - .env
+    restart: unless-stopped
+
+  caddy:
+    # build: caddy
+    image: forewing/v-caddy
+    ports:
+      - 80:80 # optional, but needed when using HTTP challenge
+      - 443:443
+    env_file:
+      - .env
+    restart: unless-stopped
+    volumes:
+      - ./caddy_data:/data # cert cache
+      # - ./PATH/TO/WWW:/usr/share/caddy # mask site
