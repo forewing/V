@@ -3,10 +3,10 @@ name: Docker
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     branches:
-      - master
+      - main
 
 jobs:
   caddy:
@@ -22,7 +22,7 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         repository: ${{ secrets.DOCKER_REPO_CADDY }}
         tags: latest
-        push: ${{ startsWith(github.ref, 'refs/heads/master') }}
+        push: ${{ startsWith(github.ref, 'refs/heads/main') }}
         path: ./caddy
 
   v2ray:
@@ -38,5 +38,5 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         repository: ${{ secrets.DOCKER_REPO_V2RAY }}
         tags: latest
-        push: ${{ startsWith(github.ref, 'refs/heads/master') }}
+        push: ${{ startsWith(github.ref, 'refs/heads/main') }}
         path: ./v2ray
