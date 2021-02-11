@@ -19,9 +19,15 @@ else
     DNS_CONFIG="dns cloudflare {env.CLOUDFLARE_API_TOKEN}"
 fi
 
+if [ -z "${ACME_EMAIL}" ]; then
+    echo "ACME_EMAIL not set"
+else
+    echo "using ACME_EMAIL: $ACME_EMAIL"
+fi
+
 cat <<EOF > $TARGET_CADDYFILE
 $V_DOMAIN {
-    tls {
+    tls $ACME_EMAIL {
         protocols tls1.2 tls1.3
         $DNS_CONFIG
     }
